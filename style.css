@@ -24,9 +24,10 @@ body {
 
 .overlay{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     position: absolute;
+    width: 100vw;
     height: 80px;
     left: 1%;
     z-index: 1000;
@@ -50,6 +51,35 @@ body {
 }
 
 /*--------------------------------------------------------------------------- VIDAS -------------------------------------------------------------------------------------------------*/
+.contenedorCoin{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 155px;
+    height: 95px;
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    z-index: 1000;
+}
+
+.contadorCoin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    width: 50px;
+    height: 50px;
+}
+
+.coin {
+    width: 115px;
+    height: 95px;
+    background: url("images/bonus/coin.png"); 
+    animation: coinGirando .5s steps(10) infinite;
+}
+
 
 #vidas{
     display: flex;
@@ -165,7 +195,7 @@ body {
     height: 200px;
     z-index: 1;
     position: absolute;
-    bottom: 10%;
+    bottom: 12%;
     z-index: 1000;
     left: 100px;
 }
@@ -322,19 +352,20 @@ body {
 }
 
 /*--------------------------------------------------------------------------- BONUS CORAZON ---------------------------------------------------------------------------------------*/
-
-.bonusCorazon {
-    border-radius: 10px;
+.bonus{
     position: absolute;
-    bottom: 45%;
-    width: 75px;
-    height: 75px;
-    background: url("images/bonus/corazon.png"); 
-    animation: corazonDesplazandose 7.5s forwards linear,corazonGirando 0.8s steps(14) infinite;
+    border-radius: 10px;
     z-index: 1000;
 }
 
-@keyframes corazonDesplazandose {
+.bonusCorazon {
+    width: 75px;
+    height: 75px;
+    background: url("images/bonus/corazon.png"); 
+    animation: bonusDesplazandose 7.5s forwards linear,corazonGirando 0.8s steps(14) infinite;
+}
+
+@keyframes bonusDesplazandose {
     from {
       left: 100%;
     }
@@ -352,3 +383,40 @@ body {
     }
 }
 
+.bonusCoin {
+    width: 115px;
+    height: 95px;
+    background: url("images/bonus/coin.png"); 
+    animation: bonusDesplazandose 7.5s forwards linear,coinGirando 0.4s steps(10) infinite;
+}
+
+.desplazarCoin{
+    position: absolute;
+    top: 60%;
+    left: 10%;
+    width: 115px;
+    height: 95px;
+    background: url("images/bonus/coin.png"); 
+    animation: coinDesplazandose 1.3s forwards linear,coinGirando 0.4s steps(10) infinite;
+    z-index: 1000;
+}
+
+@keyframes coinGirando {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: 1150px;
+    }
+}
+
+@keyframes  coinDesplazandose {
+    0%{
+        top: 60%;
+        left: 10%;
+    }
+    100%{
+        top: 0%;
+        left: 92%;
+    }  
+}

@@ -6,11 +6,11 @@ class Runner extends Personaje {
         this.vidas = vidas;
     }
 
-    status() {
-        if(vidas == 0){
+    status(finalizo) {
+        if(finalizo || vidas == 0 ){
             this.caida();
             vidas = null;
-        }
+        }  
     }
 
     correr() {
