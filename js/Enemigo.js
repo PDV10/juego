@@ -1,8 +1,7 @@
-class Enemigo extends Personaje {
+class Enemigo {
 
 
     constructor(tipoEnemigo) {
-        super();
         
         this.tipoEnemigo = tipoEnemigo;
         this.enemigo = document.createElement("div");

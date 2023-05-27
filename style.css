@@ -329,7 +329,7 @@ body {
     width: 440px;
     height: 150px;
     background: url("images/enemigos/helicoptero.png");
-    animation: enemigo 5s forwards linear, enemigo2 0.5s steps(4) infinite;
+    animation: enemigo 6s forwards linear, enemigo2 0.5s steps(4) infinite;
     z-index: 1000;
 }
 

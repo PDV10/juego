@@ -1,7 +1,6 @@
-class Runner extends Personaje {
+class Runner {
 
     constructor(vidas) {
-        super();
         this.personaje = document.getElementById("personaje");
         this.vidas = vidas;
     }
@@ -10,7 +9,7 @@ class Runner extends Personaje {
         if(finalizo || vidas == 0 ){
             this.caida();
             vidas = null;
-        }  
+        }
     }
 
     correr() {

@@ -37,14 +37,16 @@ setInterval(gameLoop, 50);
 /* temporizador */
 setInterval(temporizador, 1000);  
 
+setInterval(eliminarElementos,50) 
+
+setInterval(checkCollision,50) 
+
 /**
  * Chequear estado del runner 
  */
 function gameLoop() {
     runner.status(finalizo());
 }
-
-setInterval(checkCollision,50) 
 
 function checkCollision() {
     const personaje = document.querySelector("#personaje").getBoundingClientRect(); 
@@ -94,8 +96,6 @@ function checkCollision() {
     }
 }
 
-setInterval(eliminarElementos,50) 
-
 
 function eliminarElementos() {
     let enemigos = document.getElementsByClassName("EnemigoGeneral");
@@ -144,7 +144,7 @@ function generarBonus(){
     let altura = generarNumeroAleatorio();
     let valor = Math.round(Math.random()* 5 ); 
 
-    if(valor >= 4 && vidas < 3 ){
+    if(valor >= 4 && vidas < 2 ){
         objetoBonus = new Bonus(true,"corazon",altura); 
     }else{
         objetoBonus = new Bonus(true,"coin",altura); 
@@ -185,5 +185,5 @@ function generarNumeroAleatorio() {
     }else{
         return Math.floor(Math.random() * (10 - 0 + 1) );;
     }
-  }
+}
   
