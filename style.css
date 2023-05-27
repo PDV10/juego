@@ -1,0 +1,354 @@
+body {
+    margin: 0;
+    max-height: 100%;
+}
+
+#contenedor,
+#cielo,
+#piso {
+    width: 100%;
+}
+
+#contenedor {
+    height: 100%;
+    overflow-y: hidden; 
+    overflow-x: hidden;
+}
+
+body {
+    overflow-y: hidden; 
+    overflow-x: hidden;
+}
+
+/*--------------------------------------------------------------------------- OVERLAY ----------------------------------------------------------------------------------------------*/
+
+.overlay{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 80px;
+    left: 1%;
+    z-index: 1000;
+}
+
+/*--------------------------------------------------------------------------- TIMER -------------------------------------------------------------------------------------------------*/
+
+.temporizador{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 20px 0px 5px;
+    width: 100px;
+    border: 3px solid black;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.temporizador span{
+    font-size: 40px;
+}
+
+/*--------------------------------------------------------------------------- VIDAS -------------------------------------------------------------------------------------------------*/
+
+#vidas{
+    display: flex;
+}
+
+.corazon {
+    width: 75px;
+    height: 80px;
+    margin: 0px 5px;
+} 
+
+.sumarVida{
+    background-image: url("images/bonus/corazon.png");
+    animation: corazonGirando 1.5s steps(14) infinite;
+}
+.quitarVida{
+    background-image: url("images/bonus/perderVida.png");
+    animation: corazonGirando 1s steps(14) infinite;
+}
+/*--------------------------------------------------------------------------- CIELO -------------------------------------------------------------------------------------------------*/
+
+#cielo {
+    height: 35%;
+    background: url("images/fondos/cielo.jpg") repeat-x;
+    background-size: 736px 100%;
+    position: absolute;
+    animation: sky 25s linear infinite;
+    z-index: 1;
+}
+
+@keyframes sky {
+    0% {
+        background-position: 736px
+    }
+    100% {
+        background-position: 0
+    }
+}
+
+/*--------------------------------------------------------------------------- EDIFICIOS ----------------------------------------------------------------------------------------------*/
+
+#edificios{
+    top: 30%;
+    height: 50%;
+    width: 100%;
+    background: url("images/fondos/edificios.png") repeat-x;
+    background-size: 1568px 100%;
+    z-index: 50;
+    position: absolute;
+    animation: edificios 8s linear infinite;
+}
+
+@keyframes edificios {
+    0% {
+        background-position: 1568px
+    }
+
+    100% {
+        background-position: 0
+    }
+}
+
+/*--------------------------------------------------------------------------- EDIFICIOS LEJANOS -------------------------------------------------------------------------------------*/
+
+#edificiosLejanos{
+    height: 50%;
+    width: 100%;
+    background: url("images/fondos/edificiosLejanos.png") repeat-x;
+    background-size: 936px 100%;
+    z-index: 10;
+    position: absolute;
+    animation: edificiosLejanos 20s linear infinite;
+}
+
+@keyframes edificiosLejanos {
+    0% {
+        background-position: 936px
+    }
+
+    100% {
+        background-position: 0
+    }
+}
+
+/*--------------------------------------------------------------------------- PISO ------------------------------------------------------------------------------------------------*/
+
+#piso {
+    height: 20%;
+    background: url("images/fondos/piso.jpg") repeat-x;
+    background-size: 758px 100%;
+    animation: floor 2s linear infinite;
+    position: absolute;
+    bottom: 0px;
+    z-index: 100;
+}
+
+@keyframes floor {
+    0% {
+        background-position: 831px
+    }
+
+    100% {
+        background-position: 0
+    }
+}
+
+/*--------------------------------------------------------------------------- PERSONAJE ----------------------------------------------------------------------------------------------*/
+
+#personaje {
+/*     border: 3px solid greenyellow; */
+    border-radius: 10px;
+    width: 175px;
+    height: 200px;
+    z-index: 1;
+    position: absolute;
+    bottom: 10%;
+    z-index: 1000;
+    left: 100px;
+}
+
+.correr {
+    background: url("images/personaje/correr.png") repeat-x;
+    animation: correr 0.7s steps(6) infinite;
+}
+
+.saltar {
+    background: url("images/personaje/salto.png") repeat-x;
+    animation: saltar 0.8s steps(9) normal;
+}
+
+.agacharse{
+    background: url("images/personaje/agacharse.png") repeat-x;
+    animation: agacharse 1s steps(10) normal;
+}
+
+.caida{
+    background: url("images/personaje/caida.png") repeat-x;
+    animation: caida 1s steps(10) normal;
+}
+
+.muerto{
+    background: url("images/personaje/muerto.png");
+    animation: muerto 3s normal;
+}
+
+.perderVida {
+    background: url("images/personaje/perderVida.png") repeat-x;
+    animation: perderVida 1s steps(10) normal;
+} 
+
+@keyframes perderVida {
+    0% {
+        background-position: 0;
+        
+    }
+    100% {
+        background-position: -1750px;
+    }
+}
+
+@keyframes correr {
+    0% {
+        background-position: 0;
+        
+    }
+    100% {
+        background-position: -1050px;
+    }
+}
+
+@keyframes saltar {
+    0% {
+        background-position: 0;
+        bottom: 10%;
+        
+    }
+    50% {
+        bottom: 40%;
+        
+    }
+    100% {
+        background-position: -1575px;
+        bottom: 10%;
+    }  
+}
+
+
+@keyframes agacharse {
+    0% {
+        background-position: 0;
+        bottom: 10%;
+        
+    }
+    10% {
+        bottom: 0%;
+        
+    }
+    95% {
+        bottom: 0%;
+        
+    }
+    100% {
+        background-position: -1750px;
+        bottom: 10%;
+    } 
+}
+
+@keyframes caida {
+    0% {
+        background-position: 0;
+    }
+    100% {
+        background-position: -1750px;
+    }
+}
+
+@keyframes muerto {
+    0% {
+        left: 100px;
+    }
+    100% {
+        left: -100%;
+    }
+}
+
+
+/*--------------------------------------------------------------------------- ENEMIGOS -------------------------------------------------------------------------------------------------*/
+
+.esconder {
+  display: none;
+}
+
+.enemigoAuto {
+    position: absolute;
+    bottom: 7%;
+    width: 270px;
+    height: 150px;
+    background: url("images/enemigos/auto.png");
+    animation: enemigo 5s forwards linear;
+    z-index: 1000;
+}
+
+.enemigoHelicoptero {
+    border-radius: 10px;
+    position: absolute;
+    bottom: 22%;
+    width: 440px;
+    height: 150px;
+    background: url("images/enemigos/helicoptero.png");
+    animation: enemigo 5s forwards linear, enemigo2 0.5s steps(4) infinite;
+    z-index: 1000;
+}
+
+@keyframes enemigo {
+    from {
+      left: 100%;
+    }
+    to {
+         left: -100%;
+    }
+}
+
+@keyframes enemigo2 {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: 1760px;
+    }
+}
+
+/*--------------------------------------------------------------------------- BONUS CORAZON ---------------------------------------------------------------------------------------*/
+
+.bonusCorazon {
+    border-radius: 10px;
+    position: absolute;
+    bottom: 45%;
+    width: 75px;
+    height: 75px;
+    background: url("images/bonus/corazon.png"); 
+    animation: corazonDesplazandose 7.5s forwards linear,corazonGirando 0.8s steps(14) infinite;
+    z-index: 1000;
+}
+
+@keyframes corazonDesplazandose {
+    from {
+      left: 100%;
+    }
+    to {
+         left: -100%;
+    }
+}
+
+@keyframes corazonGirando {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: 1050px;
+    }
+}
+
