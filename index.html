@@ -5,12 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rye&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="images/personaje/personaje.png">
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
-    <div id="contenedor"> 
-        <div class="overlay">
+   
+
+    <div id="contenedor">
+        <div class="contenedorMenuPrincipal">
+            <div class="menuPrincipal ">
+                <nav>
+                    <h1> las aventuras de pepe</h1>
+                </nav>
+                <div class="menu">
+                    <div class="lista-menu">
+                        <button id="jugar">Jugar</button>
+                        <button id="guia">Guia</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        
+        <div class="overlay esconder">
             <div class="temporizador">
                 <span id="span-temp">5:00</span>
             </div>
@@ -30,8 +51,11 @@
         <div id="cielo"></div>
         <div id="personaje" class="correr"></div>
         <div id="piso"></div>
+
+      
     </div>
-    
+
+ 
 
 </body>
 <script src="js/Runner.js"></script>

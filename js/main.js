@@ -1,5 +1,6 @@
 "use strict"
-
+let btn = document.getElementById("jugar");
+btn.addEventListener("click", start)
 
 let vidas = 1;
 let runner = new Runner(vidas);
@@ -13,12 +14,10 @@ let timerSeg = 59;
 let objetoBonus = new Bonus(false);
 let contadorCoin = 0;
 
-// error
-/* reproducir();
 function reproducir() {
     audio.play();
 } 
- */
+
 document.addEventListener('keydown', (e) => {
     if(e.key == "ArrowUp"){
         runner.saltar();
@@ -28,18 +27,29 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-/* cada 50 milisegundos verifica estado del juego */
-setInterval(gameLoop, 50);
+function start(){
+    let menu = document.querySelector(".contenedorMenuPrincipal");
+    menu.classList.remove(".contenedorMenuPrincipal");
+    menu.classList.add("esconder")
 
-/* cada 2.5 segundo genera un enemigo aleatorio */
- setInterval(generadorDeElementos, 2500); 
+    let overlay = document.querySelector(".overlay");
+    overlay.classList.remove("esconder");
 
-/* temporizador */
-setInterval(temporizador, 1000);  
+    reproducir();
 
-setInterval(eliminarElementos,50) 
-
-setInterval(checkCollision,50) 
+    /* cada 50 milisegundos verifica estado del juego */
+    setInterval(gameLoop, 50);
+    
+    /* cada 2.5 segundo genera un enemigo aleatorio */
+    setInterval(generadorDeElementos, 2500); 
+    
+    /* temporizador */
+    setInterval(temporizador, 1000);  
+    
+    setInterval(eliminarElementos,50) 
+    
+    setInterval(checkCollision,50) 
+}
 
 /**
  * Chequear estado del runner 
@@ -125,13 +135,13 @@ function generadorDeElementos(){
     let valor = Math.round(Math.random()* 5 ); 
     if(valor >= 3){
         generarBonus();
-        generarEnemigo(); 
+        generarEnemigos(); 
     }else{
-        generarEnemigo(); 
+        generarEnemigos(); 
     }
 }
 
-function generarEnemigo() {
+function generarEnemigos() {
     let valor = Math.round(Math.random()* 4 ); 
     if(valor >2){
         enemigo = new Enemigo("enemigoAuto");
