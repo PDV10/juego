@@ -1,61 +1,172 @@
 "use strict"
-let btn = document.getElementById("jugar");
-btn.addEventListener("click", start)
+let menuPrincipal = document.querySelector(".menuPrincipal");
+let menuGuia = document.querySelector(".menuGuia");
+let menuFinal = document.querySelector(".menuFinal");
 
-let vidas = 1;
-let runner = new Runner(vidas);
+let btnJugar = document.querySelectorAll(".jugar");
+btnJugar.forEach(btn => {
+    btn.addEventListener("click", start)
+});
+
+let btnGuia = document.getElementById("guia").addEventListener("click",()=>{
+    menuPrincipal.classList.add("esconder");
+    menuGuia.classList.remove("esconder");
+})
+
+let btnInicio = document.querySelectorAll(".inicio");
+btnInicio.forEach(btn => {
+    btn.addEventListener("click",()=>{
+        menuPrincipal.classList.remove("esconder");
+        menuGuia.classList.add("esconder");
+        menuFinal.classList.add("esconder");
+    })
+});
+
+
+let contenedor = document.getElementById("contenedor");
+let overlay = document.querySelector(".overlay");
+let temporizador = document.querySelector("#span-temp");
+let vidas;
+let runner = null;
+let timerMin ;
+let timerSeg;
+let contadorCoin = 0;
+let enemigo ;
 
 let audio = new Audio();
-audio.src = "./audio/audio.mp3"
-let enemigo = null;
+let musica = new Audio();
+let efecto_Sonido = new Audio();
 
-let timerMin = 4;
-let timerSeg = 59;
 let objetoBonus = new Bonus(false);
-let contadorCoin = 0;
 
-function reproducir() {
+let volume = document.getElementById("volume");
+
+// intervalos
+let game_loop;
+let generador_De_elementos;
+let generador_De_enemigos;
+let check_Collision;
+let temp;
+
+volume.addEventListener("click", ()=>{
+    let span_volume = document.getElementById("span-volume");
+    if(span_volume.innerHTML == "volume_up"){
+        span_volume.innerHTML = "volume_off"
+    }else{
+        span_volume.innerHTML = "volume_up"
+    }
+    audio.src= "../audio/menu.mp3"
+    reproducir(audio);
+})  
+
+let btnMenu = document.querySelectorAll(".btnMenu");
+btnMenu.forEach(btn => {
+    btn.addEventListener("mouseover", ()=>{
+        audio.src= "../audio/menu.mp3"
+        reproducir(audio);
+    })
+});
+
+function reproducir(audio) {
     audio.play();
 } 
 
-document.addEventListener('keydown', (e) => {
-    if(e.key == "ArrowUp"){
-        runner.saltar();
-    }
-    if(e.key == "ArrowDown"){
-        runner.agacharse();
-    }
-});
-
 function start(){
-    let menu = document.querySelector(".contenedorMenuPrincipal");
-    menu.classList.remove(".contenedorMenuPrincipal");
-    menu.classList.add("esconder")
+    vidas = 1;
+    timerMin = 4;
+    timerSeg = 59;
+    let div = document.createElement("div");
+    div.setAttribute("id","personaje")
+    div.classList.add("correr");
+    contenedor.appendChild(div)
 
-    let overlay = document.querySelector(".overlay");
+    let ContenedorVidas = document.getElementById("vidas")
+    let divVidas = document.createElement("div");
+    divVidas.classList.add("sumarVida");
+    divVidas.classList.add("corazon");
+    ContenedorVidas.appendChild(divVidas);
+    
+    runner = new Runner(vidas);
+    
+    enemigo = null;
+    
+    let span_volume = document.getElementById("span-volume");
+    if(span_volume.innerHTML == "volume_up"){
+        audio.src = "../audio/audio.mp3";
+    }else{  
+        audio.src = null;
+    } 
+
+    let menus = document.querySelectorAll(".menuGeneral");
+    menus.forEach(menu => {
+        menu.classList.add("esconder")
+    });
+
     overlay.classList.remove("esconder");
-
-    reproducir();
+    if(audio.src != null){
+        reproducir(audio);
+    }
 
     /* cada 50 milisegundos verifica estado del juego */
-    setInterval(gameLoop, 50);
-    
+    game_loop = setInterval(gameLoop, 50);
+
     /* cada 2.5 segundo genera un enemigo aleatorio */
-    setInterval(generadorDeElementos, 2500); 
+    generador_De_elementos = setInterval(generadorDeElementos, 2500); 
     
     /* temporizador */
-    setInterval(temporizador, 1000);  
+    temp = setInterval(restarTemp, 1000);  
     
     setInterval(eliminarElementos,50) 
     
-    setInterval(checkCollision,50) 
+    check_Collision = setInterval(checkCollision,50) 
 }
+
+function terminarJuego(){
+   
+    overlay.classList.add("esconder");
+
+    setTimeout(() => {
+        menuFinal.classList.remove("esconder");
+    }, 3000);
+
+    clearInterval(game_loop);
+    clearInterval(generador_De_elementos);
+    clearInterval(check_Collision);
+    clearInterval(temp);
+    objetoBonus.eliminarCoins();
+    obtenerPuntaje();
+    temporizador.innerHTML = "5:00";
+}
+
+
+document.addEventListener('keydown', (e) => {
+    if(runner != null){
+        if(e.key == "ArrowUp"){
+            runner.saltar();
+        }
+        if(e.key == "ArrowDown"){
+            runner.agacharse();
+        }
+    }
+});
+
 
 /**
  * Chequear estado del runner 
  */
 function gameLoop() {
-    runner.status(finalizo());
+    let estado = finalizo();
+    runner.status(estado);
+    if(estado){
+        terminarJuego();
+    }
+   
+}
+
+function obtenerPuntaje(){
+    let puntajeTotal = document.getElementById("puntajeTotal");
+    puntajeTotal.innerHTML = "X"+contadorCoin;
+    contadorCoin = 0;
 }
 
 function checkCollision() {
@@ -93,12 +204,13 @@ function checkCollision() {
                    
                 }
                 if(e.className == "bonus bonusCoin"){
-                    console.log("entro");
                     if(contadorCoin == 0){
                         objetoBonus.mostarContadorCoin();
                     }
                     contadorCoin++;
-                    objetoBonus.sumarCoin(contadorCoin);                
+                    objetoBonus.sumarCoin(contadorCoin);     
+                    efecto_Sonido.src = "../audio/coin.mp3"
+                    reproducir(efecto_Sonido);           
                 }
                 e.remove(); 
             }  
@@ -127,8 +239,7 @@ function eliminarElementos() {
                 e.remove();
             } 
         }  
-    }
-   
+    }   
 }
 
 function generadorDeElementos(){
@@ -161,9 +272,8 @@ function generarBonus(){
     }
 }
     
-function temporizador(){
+function restarTemp(){
     if(vidas > 0){
-        let temporizador = document.querySelector("#span-temp");
         temporizador.innerHTML = timerMin +":"+timerSeg;
         timerSeg--;
         if(timerSeg == -1){
@@ -178,7 +288,7 @@ function temporizador(){
 }
 
 function finalizo(){
-    if(timerMin == 0 && timerSeg == -1){
+    if(timerMin == 0 && timerSeg == -1 || vidas == 0){
         return true;
     }else{
         return false;

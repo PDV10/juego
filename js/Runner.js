@@ -6,9 +6,13 @@ class Runner {
     }
 
     status(finalizo) {
-        if(finalizo || vidas == 0 ){
+        if(finalizo ){
+           
             this.caida();
-            vidas = null;
+            vidas = 0;
+            efecto_Sonido.src = "../audio/muerte.mp3"
+            /*reproducir(efecto_Sonido); */
+                
         }
     }
 
@@ -72,7 +76,7 @@ class Runner {
     muerto(){
         this.personaje.classList.add("muerto");
         this.personaje.addEventListener("animationend", () => {
-            this.personaje.style.display = "none";
+            this.personaje.remove();
         });
     }
 

@@ -222,7 +222,7 @@ body {
 
 .muerto{
     background: url("images/personaje/muerto.png");
-    animation: muerto 3s normal;
+    animation: muerto 2s normal;
 }
 
 .perderVida {
@@ -419,14 +419,6 @@ body {
     }  
 }
 
-#btn{
-    position: absolute;
-    top: 10px;
-    left: 30%;
-    z-index: 1000;
-    width: 70px;
-    height: 40px;
-}
 
 /*---------------------------------------------------- Menu Princial -------------------------------------------------------------------------------*/
 
@@ -438,10 +430,9 @@ body {
     width: 100vw;
     height: 100vh;
     z-index: 10000;
- 
 }
 
-.menuPrincipal{
+.menuGeneral{
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -453,18 +444,19 @@ body {
     background-color: #e12adf42;
 }
 
+
 .menuPrincipal nav, .menuPrincipal .menu, .lista-menu{
     display: flex;
     border-radius: 50px;
-    margin: 3% 3% ;
+    margin: 2% 3% ;
 }
 
-.menuPrincipal .menu{ 
+.menuGeneral .menu{ 
     margin-top: 0;
     height: 90%;
 }
 
-.menuPrincipal nav h1{
+.menuGeneral nav h1{
     margin-top: 30px;
     font-size: 50px;
     font-family: 'Rye', cursive;
@@ -472,9 +464,8 @@ body {
 
 .lista-menu{
     flex-direction: column;
-    justify-content: space-between;
-    height: 60%;
-    margin-top: 2rem;
+    justify-content: space-around;
+    height: 100%;
 }
 
 .lista-menu button{
@@ -490,9 +481,81 @@ body {
     letter-spacing: 3px;
 }
 
+.lista-menu #volume{
+    justify-content: center;
+    align-self: center;
+    width: 5rem;
+}
+
+
+.lista-menu #volume span{
+   font-size: 40px;
+}
+
 .lista-menu button:hover{
     color: rgb(227 246 121 / 74%);
 }
+
+.menuGeneral .puntaje, .contenedorGuia{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30rem;
+    height: 15rem;
+    border: 3px solid black;
+    z-index: 100000 ;
+}
+
+.menuFinal .lista-menu, .menuGuia .lista-menu{
+    flex-direction: row;
+    justify-content: space-around;
+    height: 5rem;
+}
+
+.puntaje span, .contenedorGuia span{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+    margin: 0.8rem 0;
+}
+
+.menuFinal .lista-menu button, .menuGuia .lista-menu button{
+    font-size: 15px;
+    width: 10rem;
+    height: 5rem;
+}
+
+.menuGuia .contenedorGuia{
+    width: 40rem;
+    height: 21rem;
+    justify-content: start;
+}
+
+.contenedorGuia img{
+    width: 350px;
+}
+
+.contenedorGuia p{
+    margin: 0;
+    text-align: center;
+    font-size: 17px;
+    letter-spacing: 2px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, cursive;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.menuGuia nav h1{
+    margin: 5px;
+}
+
+ul{
+    margin: 0;
+    padding-left: 20px;
+    list-style: circle;
+}
+
+
 
 /* ------------------------------------------------------------------ Esconder -----------------------------------------------------------------------------------------------*/
 

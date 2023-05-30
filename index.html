@@ -7,6 +7,7 @@
     <title>Juego</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,0,0" />
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rye&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="images/personaje/personaje.png">
@@ -18,14 +19,61 @@
 
     <div id="contenedor">
         <div class="contenedorMenuPrincipal">
-            <div class="menuPrincipal ">
+                      <div class="menuGeneral menuPrincipal ">
+                    <nav>
+                        <h1> las aventuras de pepe</h1>
+                    </nav>
+                    <div class="menu">
+                        <div class="lista-menu">
+                            <button class="btnMenu jugar" >Jugar</button>
+                            <button class="btnMenu" id="guia">Guía</button>
+                            <button  id="volume">
+                            <span id="span-volume" class="material-symbols-outlined">volume_up</span></button>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="menuGeneral menuFinal esconder">
                 <nav>
-                    <h1> las aventuras de pepe</h1>
+                    <h1>Game Over</h1>
                 </nav>
                 <div class="menu">
+                    <div class="puntaje">
+                        <span > Monedas obtenidas </span>
+                        <div class="coin"></div>
+                        <span id="puntajeTotal"></span>
+                    </div>
                     <div class="lista-menu">
-                        <button id="jugar">Jugar</button>
-                        <button id="guia">Guia</button>
+                        <button class="btnMenu jugar">Volver a jugar</button>
+                        <button class="btnMenu inicio">Inicio</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menuGeneral menuGuia esconder">
+                <nav>
+                    <h1>Guía</h1>
+                </nav>
+                <div class="menu">
+                    <div class="contenedorGuia">
+                        <span > Como jugar </span>
+                        <img src="images/guia.png" alt="foto-guia">
+                        <ul>
+                            <li>
+                                <p>El objetivo del juego es obtener la mayor cantidad de monedas antes de que se acabe el tiempo, o antes de perder todas las vidas</p>
+                            </li>
+                            <li>
+                                <p>Chocar contra un enemigo resta 1 vida, estate atento, durante el transcurso del juego apareceran mas vidas</p>
+                            </li>
+                            <li>
+                                <p>Se recomienda jugar a pantalla completa para obtener una experiencia de juego satisfactoria</p>
+                            </li>                   
+                        </ul>
+                        
+                    </div>
+                    <div class="lista-menu">
+                        <button class="btnMenu jugar">jugar</button>
+                        <button class="btnMenu inicio">Inicio</button>
                     </div>
                 </div>
             </div>
@@ -36,7 +84,7 @@
                 <span id="span-temp">5:00</span>
             </div>
             <div id="vidas">
-                <div class="sumarVida corazon"></div>
+               
             </div>   
             <div class="contenedorCoin esconder">
                 <div class="coin"></div>
@@ -49,8 +97,8 @@
         <div id="edificios"></div>
         <div id="edificiosLejanos"></div>
         <div id="cielo"></div>
-        <div id="personaje" class="correr"></div>
         <div id="piso"></div>
+       
 
       
     </div>

@@ -1,6 +1,7 @@
 class Bonus {
 
     constructor(estado,bonus,altura) {
+        this.contadorCoin = document.getElementById("multiplicadorCoin")
         this.bonus = bonus;
         this.altura = altura;
         this.contenedor =  document.getElementById("contenedor");
@@ -16,6 +17,7 @@ class Bonus {
             }       
            this.contenedor.appendChild(this.div);
         }
+        
     }
   
 
@@ -38,13 +40,13 @@ class Bonus {
     }
 
     sumarCoin(valor){
-        let contadorCoin = document.getElementById("multiplicadorCoin")
+        
         this.coin = document.createElement("div");
         this.coin.classList.add("desplazarCoin");
         //obtengo el elemento que muestra el total de monedas
         this.contenedor.appendChild(this.coin);
         setTimeout(()=>{
-            contadorCoin.innerHTML = "x"+valor;
+            this.contadorCoin.innerHTML = "x"+valor;
             this.coin.classList.remove("desplazarCoin");
         },1300)
        
@@ -55,5 +57,10 @@ class Bonus {
         setTimeout(()=>{
             document.querySelector(".contenedorCoin").classList.remove("esconder");
         },1300)
+    }
+
+    eliminarCoins(){
+        document.querySelector(".contenedorCoin").classList.add("esconder");
+        this.contadorCoin.innerHTML = "";
     }
 }
