@@ -15,6 +15,7 @@ let timerSeg;
 let enemigo ;
 let runner = null;
 let contadorCoin = 0;
+let generacionElementos;
 
 let audio = new Audio();
 let efecto_Sonido = new Audio();
@@ -79,6 +80,7 @@ function start(){
     vidas_actuales = 1;
     timerMin = 4;
     timerSeg = 59;
+    generacionElementos = 3000;
     let div = document.createElement("div");
     div.setAttribute("id","personaje")
     div.classList.add("correr");
@@ -112,17 +114,19 @@ function start(){
     // muestro el overlay
     overlay.classList.remove("esconder");
 
-    // resprodusco la musica si el jugador lo eligio
+    // reproduzco la musica si el jugador lo eligio
     if(audio.src != null){
         reproducir(audio);
     }
 
     // creo los intervalos que se usan en todo el juego
-    generador_De_elementos = setInterval(generadorDeElementos, 2500); 
+    generador_De_elementos = setInterval(generadorDeElementos, generacionElementos); 
     eliminar_elementos = setInterval(eliminarElementos,50) 
     check_Collision = setInterval(checkCollision,50) 
     game_loop = setInterval(gameLoop, 50);
     temp = setInterval(restarTemp, 1000);  
+    setInterval(aumentarVelocidadDeGeneracion,30000)
+  
 }
 
 /* funcionalidad que se realiza cuando el juego finaliza */
@@ -140,7 +144,6 @@ function terminarJuego(){
     clearInterval(generador_De_elementos);
     clearInterval(check_Collision);
     clearInterval(temp);
-    clearInterval(eliminar_elementos);
     obtenerPuntaje();
     objetoBonus.eliminarCoins();
     contadorCoin = 0;
@@ -167,6 +170,17 @@ function gameLoop() {
         audio.src ="../audio/muerte.mp3"
         reproducir(audio);
         terminarJuego();
+    }
+    
+}
+
+/* funcionalidad de estar tiempo de generacion de elementos cada 30segundos */
+function aumentarVelocidadDeGeneracion(){
+    // mientras que el juego siga en curso y el tiempo no puede ser menor a 1500 (debido a que se hace injugable cuando la partida esta muy avanzada)
+    if(!finalizo() && generacionElementos >=1500){
+        generacionElementos = generacionElementos - 250;
+        clearInterval(generador_De_elementos)
+        generador_De_elementos = setInterval(generadorDeElementos, generacionElementos); 
     }
 }
 
@@ -251,7 +265,8 @@ function checkCollision() {
 function eliminarElementos() {
     let enemigos = document.getElementsByClassName("EnemigoGeneral");
     let bonus = document.getElementsByClassName("bonus");
-
+    
+ 
     for(let e of enemigos){
         if(e != null){
             const elemento = e.getBoundingClientRect();
@@ -269,6 +284,11 @@ function eliminarElementos() {
             } 
         }  
     }   
+
+    // se corta el intervalo de eliminar elementos cuando no queden elementos para eliminar en el dom 
+    if(enemigos.length == 0 && bonus.length == 0){
+        clearInterval(eliminar_elementos);
+    }
 }
 
 /* funcion encargada de generar ya sea enemigos como bonus de forma aleatoria dando prioridad a los enemigos */
