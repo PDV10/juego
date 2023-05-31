@@ -5,82 +5,95 @@ class Runner {
         this.vidas = vidas;
     }
 
+    // comprueba que el persona no haya perdido
     status(finalizo) {
         if(finalizo ){
-           
             this.caida();
-            vidas = 0;
-            efecto_Sonido.src = "../audio/muerte.mp3"
-            /*reproducir(efecto_Sonido); */
-                
+            this.vidas = 0;
         }
     }
-
+    
+    /*
+     * elimina cualquier animancion que este realizando 
+     * agrega la animancion de correr
+    */
     correr() {
         this.clean();
         this.personaje.classList.add("correr"); 
     }
 
+
+    /*
+     * elimina cualquier animancion que este realizando 
+     * agrega la animancion de perderVida
+     * cuando finaliza la animacion realiza la animacion de correr
+     */
     perderVida() {
-        if(this.personaje.classList.contains("correr") || this.personaje.classList.contains("saltar") || this.personaje.classList.contains("agacharse")) {   
-            this.clean(); 
-            this.personaje.classList.add("perderVida");
-            this.personaje.addEventListener("animationend", () => {
-                this.correr();
-            });
-        }
+        this.clean(); 
+        this.personaje.classList.add("perderVida");
+        this.personaje.addEventListener("animationend", () => {
+            this.correr();
+        });
     }
 
+     /*
+    * chequea que si el personaje esta corriendo y no esta muerto
+     * elimina cualquier animancion que este realizando 
+     * agrega la animancion de saltar
+     * cuando finaliza la animacion realiza la animacion de correr
+     */
     saltar() {
         if(this.personaje.classList.contains("correr") && !this.personaje.classList.contains("muerto")) {       
             this.clean(); 
 
             this.personaje.classList.add("saltar");
-            this.personaje.addEventListener("animationend", () => {
-                if(vidas > 0){
+            this.personaje.addEventListener("animationend", () => {      
                     this.correr();
-                 }else{
-                    this.caida();
-                } 
             });
         }
     }
 
+    /*
+    * chequea que si el personaje esta corriendo y no esta muerto
+     * elimina cualquier animancion que este realizando 
+     * agrega la animancion de agacharse
+     * cuando finaliza la animacion realiza la animacion de correr
+     */
     agacharse() {
         if(this.personaje.classList.contains("correr") && !this.personaje.classList.contains("muerto")) {       
             this.clean(); 
 
             this.personaje.classList.add("agacharse");
-
             this.personaje.addEventListener("animationend", () => {
-                if(vidas > 0){
                     this.correr();
-                 }else{
-                    this.caida();
-                } 
             });
         }
     }
 
+    /*
+     * elimina cualquier animancion que este realizando 
+     * agrega la animancion de caida
+     * cuando finaliza la animacion realiza la animacion de muerto
+     */
     caida() {
-        if(this.personaje.classList.contains("correr") || this.personaje.classList.contains("saltar") || this.personaje.classList.contains("agacharse")) {       
-            this.clean(); 
+        this.clean(); 
 
-            this.personaje.classList.add("caida");
-            this.personaje.addEventListener("animationend", () => {
-                this.muerto();
-            });
-        }
+        this.personaje.classList.add("caida");
+        this.personaje.addEventListener("animationend", () => {
+            this.muerto();
+        });
     }
 
+    // ejecuta anicaion de muerto (persoja que cae y desaparece) cuando finaliza la animacion se elimina el elemento del dom
     muerto(){
+        this.clean(); 
         this.personaje.classList.add("muerto");
         this.personaje.addEventListener("animationend", () => {
             this.personaje.remove();
         });
     }
 
-
+    /* elimino todas las animaciones que este realizando */
     clean() {
         this.personaje.classList.remove("correr"); 
         this.personaje.classList.remove("saltar");
